@@ -19,7 +19,7 @@ def main():
     print();
 
     menu.menuOptions();
-    print();
+    print("|");
     menu.menuInputOption();
 
 

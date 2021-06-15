@@ -1,18 +1,37 @@
 import os;
+import sys;
 
 def removeDir():
-    print(os.getpid())
-    dirPath = input("Adresa direktorija: ");
+    dirPath = input("\t Adresa direktorija: ");
 
     while not dirPath:
-        dirPath = input("Adresa direktorija: ");
+        dirPath = input("\t Adresa direktorija: ");
 
-    checkPath(dirPath);
+    if(checkPath(dirPath)):
+        try:
+            os.rmdir(dirPath);
+            fullPath = os.path.abspath(dirPath);
+            removeDirPathFromPath = fullPath.split("/")[:-1];
+            parentOfRemovedDir = "/".join(removeDirPathFromPath);
+            pgid = os.getpgrp();
 
+            print("**** Direktorij uspješno pobrisan! ****")
+            print("\t Adresa nadređenog direktorija: ", parentOfRemovedDir);
+            print("\t Identifikator grupe vlasnika direktorija:", pgid);
+            print("\t Sadržaj nadređenog direktorija nakon brisanja:");
+            print(os.listdir(parentOfRemovedDir));
+            return;
+        except OSError as error:
+            print("\t !!! Došlo je do greške.", error);
+            removeDir();
+    else:
+        removeDir();
 
-    return print("Option 2 unos", dirPath);
 
 
 def checkPath(path):
-    if(os.path.exists(path)):
-        print("POSTOJI PATH", path);
+    if not(os.path.exists(path)):
+        print("\t !! Unijeli ste neispravnu adresu.");
+        return False;
+
+    return True;
