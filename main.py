@@ -5,7 +5,7 @@ import platform;
 import menu;
 
 def main():
-    weekDays = ("Ponedjeljak","Utorak","Srijeda","Četvrtak","Petak","Subota","Nedjelja");
+    weekDays = ("Ponedjeljak", "Utorak", "Srijeda", "Četvrtak", "Petak","Subota", "Nedjelja");
 
     dateNow = datetime.date.today().strftime("%d+%m+%Y");
     timeNow = datetime.datetime.now().strftime("%H*%M*%S");
